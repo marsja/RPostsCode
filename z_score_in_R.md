@@ -105,9 +105,60 @@ print(df_pta)
 
 ## **Example 4: Find Z-Score for a DataFrame using mutate()**
 
-  
+``` r
+# Generate a dataframe with some hearing science data
+set.seed(123)
+age <- sample(18:70, 10, replace = TRUE)
+gender <- sample(c("M", "F"), 10, replace = TRUE)
+SSQ <- round(runif(10, min = 10, max = 100) / 10, 1)
+PTA <- round(runif(10, min = 35, max = 65), 1)
+df <- data.frame(age, gender, SSQ, PTA)
+
+# Find z-scores for the SSQ and PTA columns using mutate()
+library(dplyr)
+df <- df %>%
+  mutate(SSQ_z = (SSQ - mean(SSQ)) / sd(SSQ),
+         PTA_z = (PTA - mean(PTA)) / sd(PTA))
+         
+# View the updated dataframe
+head(df)
+```
+
+      age gender SSQ  PTA       SSQ_z       PTA_z
+    1  48      F 7.2 62.1  0.25532557  1.43450653
+    2  32      F 6.8 55.7  0.08510852  0.75089955
+    3  68      M 9.9 58.9  1.40429064  1.09270304
+    4  31      F 6.9 35.7  0.12766279 -1.38537228
+    5  20      M 7.4 49.3  0.34043409  0.06729256
+    6  59      F 5.9 57.8 -0.29787983  0.97520809
 
 ## **Example 5: Calculate z-score for all numeric variables in a dataframe using mutate_if()**
+
+``` r
+# Generate a dataframe with some hearing science data
+set.seed(123)
+age <- sample(18:70, 10, replace = TRUE)
+gender <- sample(c("M", "F"), 10, replace = TRUE)
+SSQ <- round(runif(10, min = 10, max = 100) / 10, 1)
+PTA <- round(runif(10, min = 35, max = 65), 1)
+df <- data.frame(age, gender, SSQ, PTA)
+
+# Find z-scores for all numeric columns in the dataframe using mutate_if()
+library(dplyr)
+df <- df %>%
+  mutate_if(is.numeric, ~ (.-mean(.)) / sd(.))
+  
+# View the updated dataframe
+head(df)
+```
+
+             age gender         SSQ         PTA
+    1 -0.1600770      F  0.25532557  1.43450653
+    2 -1.0748025      F  0.08510852  0.75089955
+    3  0.9833300      M  1.40429064  1.09270304
+    4 -1.1319729      F  0.12766279 -1.38537228
+    5 -1.7608467      M  0.34043409  0.06729256
+    6  0.4687968      F -0.29787983  0.97520809
 
 ## **How to Find Z-score in R to Standardize Data**
 
