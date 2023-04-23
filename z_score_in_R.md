@@ -240,8 +240,7 @@ data <- data.frame(
 data$z_ssq <- (data$ssq - mean(data$ssq)) / sd(data$ssq)
 data$z_hhie <- (data$hhie - mean(data$hhie)) / sd(data$hhie)
 ```
-
-  
+With dplyr: 
 
 ``` r
 library(dplyr)
